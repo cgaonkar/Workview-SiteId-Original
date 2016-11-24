@@ -23,22 +23,27 @@
 <body ng-app="stormpathIdpApp">
     <script type="text/ng-template" id="views/login.html">
         <div class="view login-view" ng-show="ready">
-            <div class="box row">
-                <div class="email-password-area  col-xs-12" ng-class="[hasProviders ? 'small col-sm-8' : 'large col-sm-12']">
-                    <div class="header">
-                        <span>Log In</span>
-                        <span ng-show="canRegister" wd-can-register>
-                            <span> or </span>
-                            <a href="#register">Create an Account</a>
-                        </span>
+            <div style=" float: left; font-family: 'PT Sans',sans-serif; font-size: 1.1em; color: #18355e; line-height: 17px; width: 300px; background: #e5f5f9; border: 1px solid #cae0e5; border-radius: 10px;margin-left: 5%;">
+                <img src="images/settings/sign-in-security-icon.png" style="width: 25px; float: left; padding-top: 18px; margin-right: 10px; margin-left: 20px;">
+                <p>This page is using Stormpath Securities for user Authentication.</p>
+            </div>
+            <div class="box row" id="content">
+                <div class="email-password-area">
+                    <div class="center" id="companylogo">
+                        <!--<object data="images/logos/logominustagline.svg" type="image/svg+xml" style="width:325px;">
+                            <img src="images/logos/logo.png" />
+                        </object>-->
+                        <img src="images/Logos/login-icon.png"><span class="work">Work</span><span class="view">View</span>
+                        <!--<img src="images/logos/login.png" />--><br>
+                        <div class="tagline">Enterprise Work Management</div>
                     </div>
                     <div class="alert alert-danger bad-login" ng-show="errors.badLogin">
-                        Invalid username or password.
+                        This email and password combination was not found.Please log in again.
                     </div>
                     <div class="alert alert-danger not-found" ng-show="errors.notFound">
-                        <span>Account does not exist. Do you need to </span>
-                        <a href="#/register">create an account</a>
-                        <span>?</span>
+                        <span>Account does not exist.</span> <!--Do you need to </span>-->
+                        <!--<a href="#/register">create an account</a>-->
+                        <!--<span>?</span>-->
                     </div>
                     <div class="alert alert-danger" ng-show="errors.unknown">An unkown error has occurred</div>
                     <div class="alert alert-danger" ng-show="errors.emailPasswordRequired">Please enter your email and password.</div>
@@ -61,26 +66,40 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="form-group group-email">
-                            <label ng-class="[hasProviders ? 'col-sm-12' : 'col-sm-4']">Email</label>
-                            <div ng-class="[hasProviders ? 'col-sm-12' : 'col-sm-8']">
-                                <input class="form-control" type="text" name="username" ng-model="username" placeholder="Email" />
+                        <br />
+                        <br />
+                        <div id="div_login">
+                            <div class="form-group group-email">
+                                <!--<label ng-class="[hasProviders ? 'col-sm-12' : 'col-sm-4']">Email Address</label>-->
+                                Email Address
+                                <br />
+                                <div ng-class="[hasProviders ? 'col-sm-12' : 'col-sm-8']">
+                                    <input class="form-control" type="email" name="username" ng-model="username" placeholder="Email" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group group-password">
-                            <label ng-class="[hasProviders ? 'col-sm-12' : 'col-sm-4']">Password</label>
-                            <div ng-class="[hasProviders ? 'col-sm-12' : 'col-sm-8']">
-                                <input class="form-control" type="password" name="password" ng-model="password" placeholder="Password" />
+                            <div class="form-group group-password">
+                                <!--<label ng-class="[hasProviders ? 'col-sm-12' : 'col-sm-4']">Password</label>-->
+                                Password
+                                <br />
+                                <div ng-class="[hasProviders ? 'col-sm-12' : 'col-sm-8']">
+                                    <input class="form-control" type="password" name="password" ng-model="password" placeholder="Password" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group group-remember-me">
-                            <div class="col-sm-8" ng-class="[hasProviders ? '' : 'col-sm-offset-4']">
-                                <input type="checkbox" id="remember">
-                                <label for="remember">Remember me</label>
+                            <div class="form-group group-remember-me">
+                                <div class="col-sm-8" ng-class="[hasProviders ? '' : 'col-sm-offset-4']">
+                                    <input type="checkbox" id="remember">
+                                    <label for="remember">Remember me</label>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <button class="login btn btn-login btn-sp-green" type="submit" ng-disabled="submitting">Log In</button>
+                            <div>
+                                <button class="cssbutton tall primary" type="submit" ng-disabled="submitting">Log In</button>
+                            </div>
+                            <div>
+                                <br>
+                                <a class="forgot" href="#forgot">Forgot your password?</a>
+                                <!--Forgot your password?<br>
+                                Enter your email address and <a class="forgot" href="#forgot">click here.</a>.<br>-->
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -90,7 +109,7 @@
                     <button ng-repeat="provider in providers" class="btn btn-social btn-{{provider.providerId}}" ng-click="providerLogin(provider)">{{provider.accountStore ? provider.accountStore.name : provider.providerId}}</button>
                 </div>
             </div>
-            <a class="forgot" href="#forgot">Forgot Password?</a>
+
         </div>
 
     </script>
@@ -151,13 +170,28 @@
                     </form>
                 </div>
             </div>
-            <a class="to-login" href="#/">Back to Log In</a>
+            <a class="to-login" href="#/">< Back to Log In</a>
         </div>
     </script>
     <script type="text/ng-template" id="views/forgot.html">
         <div class="view forgot-view" ng-show="ready">
-            <div class="box row">
+            <div style=" float: left; font-family: 'PT Sans',sans-serif; font-size: 1.1em; color: #18355e; line-height: 17px; width: 300px; background: #e5f5f9; border: 1px solid #cae0e5; border-radius: 10px;margin-left: 5%;">
+                <img src="images/settings/sign-in-security-icon.png" style="width: 25px; float: left; padding-top: 18px; margin-right: 10px; margin-left: 20px;">
+                <p>This page is using Stormpath Securities for user Authentication.</p>
+            </div>
+            <div class="box row" id="content">
                 <div class="col-sm-12">
+                    <div class="center" id="companylogo">
+                        <img src="images/Logos/login-icon.png"><span class="work">Work</span><span class="view">View</span>
+                        <br>
+                        <div class="tagline">Enterprise Work Management</div>
+                    </div>
+                    <div class="alert alert-danger" ng-show="unknownError">
+                        <strong>Sorry, an error occured.  Please return to the previous page and try again.</strong>
+                        <br />
+                        <br />
+                        <p>{{unknownError}}</p>
+                    </div>
                     <div class="header">
                         <span ng-show="!sent && !retry">Password Reset</span>
                         <span ng-show="retry">Reset link has expired</span>
@@ -183,32 +217,44 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="form-group group-email" ng-class="{'has-error':notFound}" form-group>
-                            <label class="col-sm-6" ng-hide="retry">Send password reset instructions to:</label>
-                            <label class="col-sm-6" ng-show="retry">Send new password reset email to:</label>
+                        <div class="form-group group-email" ng-class="{'has-error':notFound}" form-group id="div_login">
+                            <label class="col-sm-6" ng-hide="retry">Send password reset instructions to</label>
+                            <label class="col-sm-6" ng-show="retry">Send new password reset email to</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" name="email" placeholder="Email" form-control email-validation validate-on-blur />
-                                <small class="help-block wd-invalid-email" ng-show="validationError">Invalid email address</small>
-                                <small class="help-block wd-not-found" ng-show="notFound"><span>Account does not exist.</span></small>
+                                <small class="help-block wd-invalid-email alert" ng-show="validationError">Invalid email address</small>
+                                <small class="help-block wd-not-found alert" ng-show="notFound"><span>Account does not exist.</span></small>
                             </div>
                         </div>
-                        <div class="alert alert-danger" ng-show="unknownError">
-                            <strong>Sorry, an error occured.  Please return to the previous page and try again.</strong>
-                            <br />
-                            <br />
-                            <p>{{unknownError}}</p>
+                        <button class="cssbutton tall primary" ng-disabled="submitting" type="submit" style="margin-top:15px;">Send Email</button>
+                        <div style="margin-top:32px;">
+                            <a ng-show="!sent" class="to-login" href="#/" wd-back-to-login>< Back to Log In</a>
                         </div>
-                        <button class="btn btn-forgot btn-sp-green" ng-disabled="submitting" type="submit">Reset Password</button>
                     </form>
                 </div>
             </div>
-            <a ng-show="!sent" class="to-login" href="#/" wd-back-to-login>Back to Log In</a>
+
         </div>
     </script>
     <script type="text/ng-template" id="views/reset.html">
         <div class="view reset-view" ng-show="status!=='loading'">
-            <div class="box row">
+            <div style=" float: left; font-family: 'PT Sans',sans-serif; font-size: 1.1em; color: #18355e; line-height: 17px; width: 300px; background: #e5f5f9; border: 1px solid #cae0e5; border-radius: 10px;margin-left: 5%;">
+                <img src="images/settings/sign-in-security-icon.png" style="width: 25px; float: left; padding-top: 18px; margin-right: 10px; margin-left: 20px;">
+                <p>This page is using Stormpath Securities for user Authentication.</p>
+            </div>
+            <div class="box row" id="content">
                 <div class="col-sm-12">
+                    <div class="center" id="companylogo">
+                        <img src="images/Logos/login-icon.png"><span class="work">Work</span><span class="view">View</span>
+                        <br>
+                        <div class="tagline">Enterprise Work Management</div>
+                    </div>
+                    <div class="alert alert-danger" ng-show="unknownError">
+                        <strong>Sorry, an error occured.  Please return to the previous page and try again.</strong>
+                        <br />
+                        <br />
+                        <p>{{unknownError}}</p>
+                    </div>
                     <div class="header">
                         <span ng-show="status=='verified'">Password Reset</span>
                         <span ng-show="status=='failed'">Sorry! Something went wrong.</span>
@@ -233,27 +279,29 @@
                         <p>{{error}}</p>
                     </div>
                     <form class="reset-form form-horizontal sp-form" role="form" ng-show="status=='verified'" ng-submit="submit()">
-                        <div class="form-group group-password" form-group>
-                            <label class="col-sm-4">New Password</label>
-                            <div class="col-sm-8">
-                                <input type="password" class="form-control" name="password" form-control password-policy-validation validate-on-blur />
-                                <div ng-include="'views/password-error-messages.html'"></div>
+                        <div id="div_login">
+                            <div class="form-group group-password" form-group>
+                                <label class="col-sm-4">New Password</label>
+                                <div class="col-sm-8">
+                                    <input type="password" class="form-control" name="password" form-control password-policy-validation validate-on-blur />
+                                    <div ng-include="'views/password-error-messages.html'"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group group-confirm-password" form-group>
-                            <label class="col-sm-4">Confirm Password</label>
-                            <div class="col-sm-8">
-                                <input type="password" class="form-control" name="passwordConfirm" form-control password-match-validation validate-on-blur />
-                                <small wd-pw-mismatch class="help-block" ng-show="validationError">Password does not match</small>
+                            <div class="form-group group-confirm-password" form-group>
+                                <label class="col-sm-4">Confirm Password</label>
+                                <div class="col-sm-8">
+                                    <input type="password" class="form-control" name="passwordConfirm" form-control password-match-validation validate-on-blur />
+                                    <small wd-pw-mismatch class="help-block" ng-show="validationError">Password does not match</small>
+                                </div>
                             </div>
+                            <div class="alert alert-danger" ng-show="unknownError">
+                                <strong>Sorry, an error occured.  Please return to the previous page and try again.</strong>
+                                <br />
+                                <br />
+                                <p>{{unknownError}}</p>
+                            </div>
+                            <button class="cssbutton tall primary" type="submit" ng-disabled="submitting" style="margin-top:15px;">Submit</button>
                         </div>
-                        <div class="alert alert-danger" ng-show="unknownError">
-                            <strong>Sorry, an error occured.  Please return to the previous page and try again.</strong>
-                            <br />
-                            <br />
-                            <p>{{unknownError}}</p>
-                        </div>
-                        <button class="btn btn-reset btn-sp-green" type="submit" ng-disabled="submitting">Submit</button>
                     </form>
                 </div>
             </div>
