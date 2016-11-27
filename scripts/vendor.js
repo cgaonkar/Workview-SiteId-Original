@@ -27269,7 +27269,6 @@ if (typeof jQuery === 'undefined') {
                   var cb = typeof options === 'function' ? options : readyCallback || utils.noop;
                   var self = this;
                   self.jwt = opts.token || self._getToken();
-                  alert(self.jwt);
                   if (!self.jwt) {
                       setTimeout(function () {
                           cb(new Error('jwt not found as url query parameter'));
